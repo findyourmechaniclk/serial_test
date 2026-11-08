@@ -40,7 +40,7 @@ jobs:
       - name: Build all features
         run: cargo build-all-features
       - name: Test all features
-        run: cargo test-all-features -- -- --nocapture
+        run: cargo test-all-features -- --nocapture
         env:
           RUST_TEST_THREADS: 3 # So the parallel tests have enough threads
           RUST_LOG: debug
@@ -117,6 +117,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@nightly
+      - uses: Swatinem/rust-cache@v2.2.1
       - uses: dtolnay/install@cargo-docs-rs
       - run: cargo docs-rs -p serial_test
       - run: cargo docs-rs -p serial_test_derive
@@ -139,7 +140,7 @@ jobs:
       - name: Check TOML format
         run: tombi format --check
       - name: Validate TOML files
-        run: tombi lint      
+        run: tombi lint     
 
   # Placeholder to be marked as required in PRs and which depends on all other steps
   finish:
